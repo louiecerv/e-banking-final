@@ -74,28 +74,7 @@ def app():
         st.write("\n**Unique Values:**")
         for col, values in unique_values.items():
             st.write(f"- {col}: {', '.join(map(str, values))}")
-
-    # encode the data to numeric
-    le = LabelEncoder()
-    #Get the list of column names
-    column_names = df.columns.tolist()
-
-    le_list = []  # Create an empty array to store LabelEncoders
-    # Loop through each column name
-    for cn in column_names:
-        if cn != "Usage":
-            le = LabelEncoder()  # Create a new LabelEncoder for each column
-            le.fit(df[cn])  # Fit the encoder to the specific column
-            le_list.append(le)  # Append the encoder to the list
-            df[cn] = le.transform(df[cn])  # Transform the column using the fitted encoder
-
-    # save the label encoder to the session state
-    st.session_state["le_list"] = le_list
-    st.session_state['df'] = df    
-
-    st.write('The Dataset after encoding features to numbers')
-    st.write(df)
-
+            
     st.write('Descriptive Statistics')
     st.write(df.describe().T)
     st.write('The e-banking usage means and std when grouped according to Usage Level:')
