@@ -5,11 +5,6 @@ import streamlit as st
 import altair as alt
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import ExtraTreesClassifier
-from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
 from scipy.stats import chi2_contingency
 import scipy.stats as stats
 import time
@@ -254,19 +249,35 @@ def mean_std(df, column_name):
     st.write(results)
 
 def display_freqs(df, column):
-    # Get the frequency count of each class in the column
-    col_counts = df[column].value_counts()
-
+      # Calculate counts for each column class
+    scounts = df[column].value_counts()
     # Print the frequency table
-    st.write(col_counts)
+    st.write(scounts)
+    #Ensure explode has the same length as scounts
+    explode = [0 for _ in range(len(scounts))]  # Create list with 0s matching scounts length
+    explode[1] = 0.05
     
-    # Create the figure and axes objects    
-    fig, ax = plt.subplots()  # Create a figure and a single axes
-    # Create a bar chart of the frequency using seaborn
-    sns.barplot(x=col_counts.index, y=col_counts.values)
-    plt.xlabel(column)
-    plt.ylabel("Frequency")
-    plt.title('Frequency of ' + column)
+    custom_colours = ['#ff7675', '#74b9ff']
+    # Define labels and sizes for the pie chart
+    sizes = scounts
+
+    # Create a figure and subplots
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
+
+    # Create the pie chart
+    wedges, texts, autotexts = ax1.pie(sizes, autopct='%1.0f%%',
+                                    startangle=140, colors=custom_colours,
+                                    textprops={'fontsize': 10}, explode=explode)
+    ax1.set_title('Distribution of ' + column)
+
+    # Create the bar chart using seaborn
+    ax2 = sns.barplot(x=df[column].unique(), y=df[column].value_counts(), ax=ax2, palette='viridis')
+    ax2.set_xlabel(column)
+    ax2.set_ylabel('Frequency')
+    ax2.set_title(column + ' Count')
+
+    # Tight layout to prevent overlapping elements
+    plt.tight_layout()
     st.pyplot(fig)
 
 def plot_usage_by(df, column):
