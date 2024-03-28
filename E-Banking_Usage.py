@@ -11,7 +11,7 @@ def app():
     st.write(text)  
     st.markdown("Baldevarona, Alyssa Mae G., Banggud, Rica B., Gronifillo, Gracielle C., Honrado, Sherry Rose B., & Jamelarin,  Robert John Enray L. *E-banking Usage Level and Influences on Spending Habits Among College of Business and Management students.* Unpublished undergraduate thesis. (2024)")
 
-    st.image('e-banking.jpg', caption="The E-banking Usage")
+    st.image('e-banking.jpg', caption="The E-banking Usage Study")
 
     text = """\nThis dataset investigated the factors that affect the e-banking usage and 
     the influences in the spending habits among College of Business Management (CBM) students at 
