@@ -15,7 +15,7 @@ def app():
     with st.expander("About the research question. CLick to expand."):
         st.write(text)
 
-    df = pd.read_csv('inflation-final.csv', header=0)
+    df = pd.read_csv('correlation.csv', header=0)
 
 
     st.subheader("Spearman's rank correlation coefficient")
@@ -36,11 +36,11 @@ def app():
     st.subheader('Spearman Rank Order Correlation Coefficient of Awareness and Perception Levels')
 
     # Assuming your dataframe is called 'df'
-    awareness_levels = df['awarenesslevel']
-    perception_levels = df['perceptionlevel']
+    usage = df['Usage']
+    influence = df['Influence']
 
     # Calculate Spearman's rank correlation coefficient
-    spearman_coeff, p_value = spearmanr(awareness_levels, perception_levels)
+    spearman_coeff, p_value = spearmanr(usage, influece)
 
     # Print the results
     st.write("Spearman Rank Correlation Coefficient: {:.2f}".format(spearman_coeff))
