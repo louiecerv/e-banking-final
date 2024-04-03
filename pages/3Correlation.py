@@ -8,10 +8,10 @@ import scipy.stats as stats
 # Define the Streamlit app
 def app():
 
-    st.subheader('Statistical Analysis on the Relationship of Inflation Awareness and Inflation Perception')
+    st.subheader('Statistical Analysis on the Relationship of E-banking Usage and Infleunce on Spending Habits')
     text = """This part of the data app sought to answer this research question:
-    Is there a significant correlation between job order workers' level of awareness of inflation 
-    and their perception of its impact on their financial well-being?"""
+    Is there a significant relationship between e-banking usage and the influence on spending habits
+    among College of Business and Management students?"""
     with st.expander("About the research question. CLick to expand."):
         st.write(text)
 
@@ -33,7 +33,7 @@ def app():
     \nDirection: The positive or negative value reflects the direction of the monotonic trend."""
     st.write(text)
 
-    st.subheader('Spearman Rank Order Correlation Coefficient of Awareness and Perception Levels')
+    st.subheader('Spearman Rank Order Correlation Coefficient of E-Banking Usage and Influence on Spending Habits')
 
     # Assuming your dataframe is called 'df'
     usage = df['Usage']
