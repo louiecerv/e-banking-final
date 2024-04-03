@@ -40,7 +40,7 @@ def app():
     influence = df['Influence']
 
     # Calculate Spearman's rank correlation coefficient
-    spearman_coeff, p_value = spearmanr(usage, influece)
+    spearman_coeff, p_value = spearmanr(usage, influence)
 
     # Print the results
     st.write("Spearman Rank Correlation Coefficient: {:.2f}".format(spearman_coeff))
