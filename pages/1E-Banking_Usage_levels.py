@@ -207,7 +207,7 @@ def app():
     to say that usage level differs statistically between year levels in this study."""
     st.write(text)
     # Fit the ANOVA model
-    model = ols('Usage ~ C(Year Level)', data=df1).fit()
+    model = ols('Usage ~ C("Year Level")', data=df1).fit()
     # Perform ANOVA    
     anova_table = sm.stats.anova_lm(model, typ=2)
     # Display ANOVA table
