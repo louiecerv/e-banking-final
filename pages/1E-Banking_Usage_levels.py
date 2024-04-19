@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import chi2_contingency
 import scipy.stats as stats
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
 import time
 
 # Define the Streamlit app
@@ -182,6 +184,12 @@ def app():
     cannot conclude that the average usage level differs between the two sexes 
     based on this data."""
     st.write(text)
+    # Fit the ANOVA model
+    model = ols('Usage ~ C(Sex)', data=df1).fit()
+    # Perform ANOVA    
+    anova_table = sm.stats.anova_lm(model, typ=2)
+    # Display ANOVA table
+    st.write(anova_table)
 
     g1 = df1.loc[(df1['Year Level'] =='First Year'), 'Usage']
     g2 = df1.loc[(df1['Year Level'] =='Second Year'), 'Usage']
@@ -198,6 +206,12 @@ def app():
     point in the same direction, we can confidently conclude that there's not enough evidence 
     to say that usage level differs statistically between year levels in this study."""
     st.write(text)
+    # Fit the ANOVA model
+    model = ols('Usage ~ C(Year Level)', data=df1).fit()
+    # Perform ANOVA    
+    anova_table = sm.stats.anova_lm(model, typ=2)
+    # Display ANOVA table
+    st.write(anova_table)
 
     g1 = df1.loc[(df1['Course'] =='BSTM'), 'Usage']
     g2 = df1.loc[(df1['Course'] =='BSCM'), 'Usage']
@@ -216,6 +230,12 @@ def app():
     is not the same across different courses. There's evidence to conclude that some 
     courses have higher or lower usage levels compared to others."""
     st.write(text)
+    # Fit the ANOVA model
+    model = ols('Usage ~ C(Course)', data=df1).fit()
+    # Perform ANOVA    
+    anova_table = sm.stats.anova_lm(model, typ=2)
+    # Display ANOVA table
+    st.write(anova_table)
 
     g1 = df1.loc[(df1['Income'] =='Php 20 000 and Below'), 'Usage']
     g2 = df1.loc[(df1['Income'] =='Php 20 001 to Php 60 000'), 'Usage']
@@ -239,6 +259,12 @@ def app():
      the difference (i.e., which income bracket uses more), but it suggests that income 
      brackets play a role in usage levels."""
     st.write(text)
+    # Fit the ANOVA model
+    model = ols('Usage ~ C(Income)', data=df1).fit()
+    # Perform ANOVA    
+    anova_table = sm.stats.anova_lm(model, typ=2)
+    # Display ANOVA table
+    st.write(anova_table)
 
 def mean_std(df, column_name):
     grouped_data = df.groupby(column_name)
