@@ -12,6 +12,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from scipy.stats import chi2_contingency
 import scipy.stats as stats
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
 import time
 
 # Define the Streamlit app
@@ -169,6 +171,13 @@ def app():
     between males and females in the study is likely due to chance and not
     because of their sex."""
     st.write(text)
+    
+    # Fit the ANOVA model
+    model = ols('Influence ~ C(Sex)', data=df1).fit()
+    # Perform ANOVA
+    anova_table = sm.stats.anova_lm(model, typ=2)
+    # Display ANOVA table
+    st.write(anova_table)
 
     g1 = df1.loc[(df1['Year Level'] =='First Year'), 'Influence']
     g2 = df1.loc[(df1['Year Level'] =='Second Year'), 'Influence']
@@ -185,6 +194,17 @@ def app():
     level of 0.05, we cannot say that there is a statistically significant difference 
     in spending habits between different year levels."""
     st.write(text)
+
+    df1['YearLevel'] = df1['Year Level']
+
+    # Check data consistency
+    # Fit the ANOVA model
+    model = ols('Influence ~ C(YearLevel)', data=df1).fit()
+    # Perform ANOVA
+    anova_table = sm.stats.anova_lm(model, typ=2)
+    # Display ANOVA table
+    st.write(anova_table)
+
 
     g1 = df1.loc[(df1['Course'] =='BSTM'), 'Influence']
     g2 = df1.loc[(df1['Course'] =='BSCM'), 'Influence']
@@ -206,6 +226,14 @@ def app():
     the null hypothesis."""
     st.write(text)
 
+    # Fit the ANOVA model
+    model = ols('Influence ~ C(Course)', data=df1).fit()
+    # Perform ANOVA
+    anova_table = sm.stats.anova_lm(model, typ=2)
+    # Display ANOVA table
+    st.write(anova_table)
+
+
     g1 = df1.loc[(df1['Income'] =='Php 20 000 and Below'), 'Influence']
     g2 = df1.loc[(df1['Income'] =='Php 20 001 to Php 60 000'), 'Influence']
     g3 = df1.loc[(df1['Income'] =='Above Php 60 000'), 'Influence']
@@ -226,6 +254,13 @@ def app():
     in this case) suggests that we fail to reject the null hypothesis, implying a 
     lack of strong evidence for a difference between the groups."""
     st.write(text)
+
+    # Fit the ANOVA model
+    model = ols('Influence ~ C(Income)', data=df1).fit()
+    # Perform ANOVA
+    anova_table = sm.stats.anova_lm(model, typ=2)
+    # Display ANOVA table
+    st.write(anova_table)
 
 def mean_std(df, column_name):
     grouped_data = df.groupby(column_name)

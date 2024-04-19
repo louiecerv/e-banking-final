@@ -184,8 +184,9 @@ def app():
     cannot conclude that the average usage level differs between the two sexes 
     based on this data."""
     st.write(text)
+
     # Fit the ANOVA model
-    model = ols('Usage ~ C(Sex)', data=df1).fit()
+    model = ols('Usage ~ C(Sex)', data=df).fit()
     # Perform ANOVA    
     anova_table = sm.stats.anova_lm(model, typ=2)
     # Display ANOVA table
@@ -206,12 +207,17 @@ def app():
     point in the same direction, we can confidently conclude that there's not enough evidence 
     to say that usage level differs statistically between year levels in this study."""
     st.write(text)
+
+    df1['YearLevel'] = df1['Year Level']
+
+    # Check data consistency
     # Fit the ANOVA model
-    model = ols('Usage ~ C("Year Level")', data=df1).fit()
-    # Perform ANOVA    
+    model = ols('Usage ~ C(YearLevel)', data=df1).fit()
+    # Perform ANOVA
     anova_table = sm.stats.anova_lm(model, typ=2)
     # Display ANOVA table
     st.write(anova_table)
+
 
     g1 = df1.loc[(df1['Course'] =='BSTM'), 'Usage']
     g2 = df1.loc[(df1['Course'] =='BSCM'), 'Usage']
